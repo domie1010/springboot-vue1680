@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TushuxinxiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Tushuxinxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="tushubianhao" jdbcType="VARCHAR" property="tushubianhao" />    <result column="tushumingcheng" jdbcType="VARCHAR" property="tushumingcheng" />    <result column="leibie" jdbcType="VARCHAR" property="leibie" />    <result column="zuozhe" jdbcType="VARCHAR" property="zuozhe" />    <result column="chubanshe" jdbcType="VARCHAR" property="chubanshe" />    <result column="tupian" jdbcType="VARCHAR" property="tupian" />    <result column="jiage" jdbcType="VARCHAR" property="jiage" />    <result column="tushujianjie" jdbcType="VARCHAR" property="tushujianjie" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tushubianhao,tushumingcheng,leibie,zuozhe,chubanshe,tupian,jiage,tushujianjie, addtime
+  </sql>
+  <select id="quchongTushuxinxi"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tushuxinxi 
+    where tushubianhao = #{tushubianhao,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from tushuxinxi  where 1=1
+    <if test="tushubianhao!=null">and tushubianhao like  concat('%',#{tushubianhao,jdbcType=VARCHAR},'%')</if>     <if test="tushumingcheng!=null">and tushumingcheng like  concat('%',#{tushumingcheng,jdbcType=VARCHAR},'%')</if>     <if test="leibie!=null">and leibie like  concat('%',#{leibie,jdbcType=VARCHAR},'%')</if>     <if test="zuozhe!=null">and zuozhe like  concat('%',#{zuozhe,jdbcType=VARCHAR},'%')</if>     <if test="chubanshe!=null">and chubanshe like  concat('%',#{chubanshe,jdbcType=VARCHAR},'%')</if>     <if test="tupian!=null">and tupian like  concat('%',#{tupian,jdbcType=VARCHAR},'%')</if>     <if test="jiage1!=null">and jiage &gt;=  concat('',#{jiage1,jdbcType=VARCHAR},'')</if>     <if test="jiage2!=null">and jiage &lt;=  concat('',#{jiage2,jdbcType=VARCHAR},'')</if>     <if test="tushujianjie!=null">and tushujianjie like  concat('%',#{tushujianjie,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from tushuxinxi  where 1=1
+    <if test="tushubianhao!=null">
+    and tushubianhao =#{tushubianhao}
+    </if>
+  </select>
+  
+  <select id="getsytushuxinxi1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from tushuxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsytushuxinxi2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from tushuxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsytushuxinxi3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from tushuxinxi  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from tushuxinxi where 1=1 
+     <if test="tushubianhao!=null">and tushubianhao like  concat('%',#{tushubianhao,jdbcType=VARCHAR},'%')</if>     <if test="tushumingcheng!=null">and tushumingcheng like  concat('%',#{tushumingcheng,jdbcType=VARCHAR},'%')</if>     <if test="leibie!=null">and leibie like  concat('%',#{leibie,jdbcType=VARCHAR},'%')</if>     <if test="zuozhe!=null">and zuozhe like  concat('%',#{zuozhe,jdbcType=VARCHAR},'%')</if>     <if test="chubanshe!=null">and chubanshe like  concat('%',#{chubanshe,jdbcType=VARCHAR},'%')</if>     <if test="tupian!=null">and tupian like  concat('%',#{tupian,jdbcType=VARCHAR},'%')</if>     <if test="jiage1!=null">and jiage &gt;=  concat('',#{jiage1,jdbcType=VARCHAR},'')</if>     <if test="jiage2!=null">and jiage &lt;=  concat('',#{jiage2,jdbcType=VARCHAR},'')</if>     <if test="tushujianjie!=null">and tushujianjie like  concat('%',#{tushujianjie,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tushuxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tushuxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Tushuxinxi">
+    insert into tushuxinxi (id, tushubianhao,tushumingcheng,leibie,zuozhe,chubanshe,tupian,jiage,tushujianjie, addtime)
+    values (#{id,jdbcType=INTEGER}, #{tushubianhao,jdbcType=VARCHAR},#{tushumingcheng,jdbcType=VARCHAR},#{leibie,jdbcType=VARCHAR},#{zuozhe,jdbcType=VARCHAR},#{chubanshe,jdbcType=VARCHAR},#{tupian,jdbcType=VARCHAR},#{jiage,jdbcType=VARCHAR},#{tushujianjie,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Tushuxinxi">
+    insert into tushuxinxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tushubianhao != null"> tushubianhao, </if>      <if test="tushumingcheng != null"> tushumingcheng, </if>      <if test="leibie != null"> leibie, </if>      <if test="zuozhe != null"> zuozhe, </if>      <if test="chubanshe != null"> chubanshe, </if>      <if test="tupian != null"> tupian, </if>      <if test="jiage != null"> jiage, </if>      <if test="tushujianjie != null"> tushujianjie, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tushubianhao != null"> #{tushubianhao,jdbcType=VARCHAR},</if>      <if test="tushumingcheng != null"> #{tushumingcheng,jdbcType=VARCHAR},</if>      <if test="leibie != null"> #{leibie,jdbcType=VARCHAR},</if>      <if test="zuozhe != null"> #{zuozhe,jdbcType=VARCHAR},</if>      <if test="chubanshe != null"> #{chubanshe,jdbcType=VARCHAR},</if>      <if test="tupian != null"> #{tupian,jdbcType=VARCHAR},</if>      <if test="jiage != null"> #{jiage,jdbcType=VARCHAR},</if>      <if test="tushujianjie != null"> #{tushujianjie,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Tushuxinxi">
+    update tushuxinxi
+    <set>
+	  <if test="tushubianhao != null"> tushubianhao = #{tushubianhao,jdbcType=VARCHAR},</if>      <if test="tushumingcheng != null"> tushumingcheng = #{tushumingcheng,jdbcType=VARCHAR},</if>      <if test="leibie != null"> leibie = #{leibie,jdbcType=VARCHAR},</if>      <if test="zuozhe != null"> zuozhe = #{zuozhe,jdbcType=VARCHAR},</if>      <if test="chubanshe != null"> chubanshe = #{chubanshe,jdbcType=VARCHAR},</if>      <if test="tupian != null"> tupian = #{tupian,jdbcType=VARCHAR},</if>      <if test="jiage != null"> jiage = #{jiage,jdbcType=VARCHAR},</if>      <if test="tushujianjie != null"> tushujianjie = #{tushujianjie,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Tushuxinxi">
+    update tushuxinxi
+    set tushubianhao = #{tushubianhao,jdbcType=VARCHAR},tushumingcheng = #{tushumingcheng,jdbcType=VARCHAR},leibie = #{leibie,jdbcType=VARCHAR},zuozhe = #{zuozhe,jdbcType=VARCHAR},chubanshe = #{chubanshe,jdbcType=VARCHAR},tupian = #{tupian,jdbcType=VARCHAR},jiage = #{jiage,jdbcType=VARCHAR},tushujianjie = #{tushujianjie,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
